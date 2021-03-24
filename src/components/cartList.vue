@@ -4,8 +4,9 @@
     <td> <img :src="cart.Product.image_url"> </td>  
     <td> <input type="number" class="form-control" min="0" v-model="cart.quantity" style="width:36%"> </td>
     <td> {{cart.Product.price}}</td>
-    <td> <b-icon icon="pencil-square" style="padding-right:40px;" @click="updateQuantity(cart.id, cart.quantity)"> </b-icon> 
-         <b-icon icon="trash" @click="deleteCart(cart.id)"> </b-icon>
+    <td> 
+      <b-icon icon="pencil-square" style="padding-right:40px;" @click="updateQuantity(cart.id, cart.quantity)"> </b-icon> 
+      <b-icon icon="trash" @click="deleteCart(cart.id)"> </b-icon>
     </td>
   </tr>
    
