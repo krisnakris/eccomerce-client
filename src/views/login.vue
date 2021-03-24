@@ -11,6 +11,11 @@ import Login from '../components/login';
 export default {
   components : {
     Login
+  },
+  created () {
+    if (this.$store.state.isLogin) {
+      this.$router.push('products');
+    }
   }
 };
 </script>
