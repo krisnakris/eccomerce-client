@@ -21,6 +21,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/register.vue')
   },
   {
+    path: '/products',
+    name: 'Product',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Product.vue')
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import(/* webpackChunkName: "about" */ '../views/cart.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
@@ -35,5 +45,16 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  if ((to.name !== 'Home' && to.name !== 'Login' && to.name !== 'Register') && !localStorage.access_token) {
+    next({
+      name : 'Login'
+    }); 
+  } else {
+    next();
+  }
+}
+);
 
 export default router;

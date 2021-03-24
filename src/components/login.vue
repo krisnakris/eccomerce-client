@@ -1,6 +1,6 @@
 <template>
   <div class="container col-4">
-    <b-form @submit.prevent="" @reset="onReset">
+    <b-form @submit.prevent="submitLogin" @reset="onReset">
       <b-form-group
         id="input-group-1"
         label="Email address:"
@@ -9,7 +9,7 @@
       <b-form-input
         id="input-1"     
         type="email"
-        placeholder="Enter email"
+        placeholder="Enter email" v-model="formLogin.email"
         required
       ></b-form-input>
       </b-form-group>
@@ -18,7 +18,7 @@
       <b-form-input
         id="input-2"
         type="password"
-        placeholder="Enter Password"
+        placeholder="Enter Password" v-model="formLogin.password"
         required
       ></b-form-input>
       </b-form-group>
@@ -31,6 +31,14 @@
 
 <script>
 export default {
+  data : function () {
+    return {
+      formLogin : {
+        email : '',
+        password : ''
+      }
+    };
+  },
   methods : { 
     onReset (event) {
       event.preventDefault();
@@ -40,6 +48,9 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
+    },
+    submitLogin () {
+      this.$store.dispatch('submitLogin', this.formLogin);
     }
   }
 };
