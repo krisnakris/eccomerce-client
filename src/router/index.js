@@ -13,14 +13,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/login.vue'),
-    beforeEnter: (to, from, next) => {
-      if (to.name === 'Login' && localStorage.access_token) {
-        next({
-          name : 'Product'
-        });     
-      }
-    }
+    component: () => import(/* webpackChunkName: "about" */ '../views/login.vue')
   },
   {
     path: '/register',
