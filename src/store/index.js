@@ -179,8 +179,8 @@ export default new Vuex.Store({
     }
   },
   getters : {
-    productAvailable : state => {
-      return state.products.filter(product => product.stock);
+    products : state => {
+      return state.products.filter(product => product.stock >= 1);
     }
   },
   modules: {

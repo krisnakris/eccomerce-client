@@ -1,5 +1,5 @@
 <template>
-  <div v-if="product.stock">
+  <div>
     <b-card
     :title="product.name"
     :img-src="product.image_url"

@@ -11,7 +11,7 @@
 
 <script>
 import ProductCard from '../components/card';
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 export default ({
   name: 'Product',
   components: {
@@ -31,10 +31,7 @@ export default ({
     this.fetchProduct();
   },
   computed: {
-    ...mapState(['products'])
-    // activeProduct () {
-    //   return this.$store.getters.productAvailable;
-    // }
+    ...mapGetters(['products'])
   }
 });
 </script>
