@@ -32,6 +32,9 @@ export default ({
   },
   computed: {
     ...mapState(['products'])
+    // activeProduct () {
+    //   return this.$store.getters.productAvailable;
+    // }
   }
 });
 </script>

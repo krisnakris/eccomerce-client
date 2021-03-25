@@ -21,6 +21,12 @@ export default new Vuex.Store({
     },
     getAllOrders (state, payload) {
       state.carts = payload;
+    },
+    updateProductAfterAddCart (state, payload) {
+      const product = state.products.find((project) => {
+        return project.id === payload;
+      });
+      product.stock -= 1;
     }
   },
   actions: {
@@ -114,10 +120,9 @@ export default new Vuex.Store({
         }        
       })
         .then(newOrder => {
-          context.dispatch('fetchProduct');
+          context.commit('updateProductAfterAddCart', productId);
         })
         .catch(err => {
-          context.dispatch('fetchProduct');
           swal('Add to cart failed', `${err.response.data.errors}`, 'error'); 
         }); 
     },
@@ -171,6 +176,11 @@ export default new Vuex.Store({
           context.dispatch('fetchOrders');
           swal('Update Cart failed', err.response.data.errors, 'error');
         }); 
+    }
+  },
+  getters : {
+    productAvailable : state => {
+      return state.products.filter(product => product.stock);
     }
   },
   modules: {
