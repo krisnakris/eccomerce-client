@@ -23,8 +23,8 @@ export default new Vuex.Store({
       state.carts = payload;
     },
     updateProductAfterAddCart (state, payload) {
-      const product = state.products.find((project) => {
-        return project.id === payload;
+      const product = state.products.find((findProduct) => {
+        return findProduct.id === payload;
       });
       product.stock -= 1;
     }
@@ -123,6 +123,7 @@ export default new Vuex.Store({
           context.commit('updateProductAfterAddCart', productId);
         })
         .catch(err => {
+          context.dispatch('fetchProduct');
           swal('Add to cart failed', `${err.response.data.errors}`, 'error'); 
         }); 
     },
