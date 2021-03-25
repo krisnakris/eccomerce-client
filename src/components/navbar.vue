@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/login" v-if="!isLogin">Login </router-link> <span  v-if="!isLogin"> | </span>
       <router-link to="/register" v-if="!isLogin">Register </router-link> <span  v-if="!isLogin"> | </span>
-      <router-link to="/products" v-if="isLogin">Products </router-link> <span  v-if="isLogin"> | </span>
+      <router-link to="/products" >Products </router-link> <span  > | </span>
       <router-link to="/cart" v-if="isLogin">Cart </router-link> <span  v-if="isLogin"> | </span>
       <a @click.prevent="logout" v-if="isLogin"> Logout </a>
     </div>

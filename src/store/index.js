@@ -124,7 +124,11 @@ export default new Vuex.Store({
         })
         .catch(err => {
           context.dispatch('fetchProduct');
-          swal('Add to cart failed', `${err.response.data.errors}`, 'error'); 
+          if (err.response.data.errors === 'Invalid tokens') {
+            swal('You must login first', 'Login to update your cart', 'error'); 
+          } else {
+            swal('Add to cart failed', `${err.response.data.errors}`, 'error'); 
+          }
         }); 
     },
     deleteCart (context, idOrder) {

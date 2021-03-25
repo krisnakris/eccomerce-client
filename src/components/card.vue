@@ -15,7 +15,7 @@
     <p> Category :  {{product.category}} </p>
        
     </b-card-text>
-    <b-button href="#" variant="primary" @click.prevent="addToCart(product.id)">         
+    <b-button href="#" variant="primary" @click.prevent="addToCart(product.id)" v-if="$store.state.isLogin">         
     <b-icon icon="cart-check" @click="addToCart(product.id)"> </b-icon>  <span> Add to cart </span>
     </b-button>
   </b-card>
