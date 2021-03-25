@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import router from '../router/index';
 import axios from '../axios/axios';
+import swal from 'sweetalert';
 
 Vue.use(Vuex);
 
@@ -33,10 +34,11 @@ export default new Vuex.Store({
         }
       })
         .then(newCustomer => {
+          swal('Register Success!', 'Your account have been activated successfully', 'success');
           router.push('/login');
         })
         .catch(err => {
-          console.log(err.response.data.errors);
+          swal('Register failed', `${err.response.data.errors}`, 'error'); 
         });
     },
     submitLogin (context, formLogin) {
@@ -49,12 +51,13 @@ export default new Vuex.Store({
         }
       })
         .then(customer => {
+          swal('Login Success!', `Welcome to Test Shop ${customer.data.email}`, 'success');
           localStorage.setItem('access_token', customer.data.access_token);
           context.commit('isLogin', true);
           router.push('/products');
         })
         .catch(err => {
-          console.log(err.response.data.errors);
+          swal('Login failed', `${err.response.data.errors}`, 'error'); 
         });
     },
     fetchProduct (context) {
@@ -84,9 +87,23 @@ export default new Vuex.Store({
         });
     },
     logout (context) {
-      localStorage.removeItem('access_token');
-      context.commit('isLogin', false);
-      router.push('/login');
+      swal({
+        title: 'Are you sure ?',
+        text: '',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            swal('Logout', 'See you again !', 'success');
+            localStorage.removeItem('access_token');
+            context.commit('isLogin', false);
+            router.push('/');
+          } else {
+
+          }
+        });
     },
     addToCart (context, productId) {
       axios({
@@ -100,23 +117,39 @@ export default new Vuex.Store({
           context.dispatch('fetchProduct');
         })
         .catch(err => {
-          console.log(err.response.data.errors);
+          context.dispatch('fetchProduct');
+          swal('Add to cart failed', `${err.response.data.errors}`, 'error'); 
         }); 
     },
     deleteCart (context, idOrder) {
-      axios({
-        method : 'DELETE',
-        url : '/orders/' + idOrder,
-        headers : {
-          access_token : localStorage.getItem('access_token')
-        }        
+      swal({
+        title: 'Are you sure?',
+        text:  'Once deleted, you will not be able to recover this cart',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true
       })
-        .then(newOrder => {
-          context.dispatch('fetchOrders');
-        })
-        .catch(err => {
-          console.log(err.response.data.errors);
-        });       
+        .then((willDelete) => {
+          if (willDelete) {
+            axios({
+              method : 'DELETE',
+              url : '/orders/' + idOrder,
+              headers : {
+                access_token : localStorage.getItem('access_token')
+              }        
+            })
+              .then(newOrder => {
+                swal('Delete Cart Success!', '', 'success');
+                context.dispatch('fetchOrders');
+              })
+              .catch(err => {
+                context.dispatch('fetchOrders');
+                swal('Delete Cart failed', err.response.data.errors, 'error');
+              });       
+          } else {
+            
+          }
+        });    
     },
     updateCart (context, payload) {
       const { id, quantity } = payload;
@@ -131,11 +164,12 @@ export default new Vuex.Store({
         }  
       })
         .then(data => {
+          swal('Update Cart Success!', 'Cart quantity updated', 'success');
           context.dispatch('fetchOrders');
         })
         .catch(err => {
           context.dispatch('fetchOrders');
-          console.log(err.response.data.errors);
+          swal('Update Cart failed', err.response.data.errors, 'error');
         }); 
     }
   },

@@ -8,6 +8,7 @@
           <th scope="col"> Product Name </th>
           <th scope="col"> Image </th>
           <th scope="col"> Quantity </th>
+          <th scope="col"> Ready Stock </th>
           <th scope="col"> Price </th>
           <th scope="col"> Option </th>
         </tr>

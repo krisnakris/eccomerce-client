@@ -12,6 +12,8 @@
         placeholder="Enter email" v-model="form.email"
         required
       ></b-form-input>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
       </b-form-group>
 
       <b-form-group id="input-group-2" label="Password:" label-for="input-2">
@@ -21,6 +23,8 @@
         placeholder="Enter Password" v-model="form.password"
         required
       ></b-form-input>
+      <small id="passHelp" class="form-text text-muted">Don't use your bank password</small>
+
       </b-form-group>
 
       <b-button type="submit" variant="primary" style="margin-right:50px">Submit</b-button>

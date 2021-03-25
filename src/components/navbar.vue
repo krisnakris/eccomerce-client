@@ -6,7 +6,7 @@
       <router-link to="/register" v-if="!isLogin">Register </router-link> <span  v-if="!isLogin"> | </span>
       <router-link to="/products" v-if="isLogin">Products </router-link> <span  v-if="isLogin"> | </span>
       <router-link to="/cart" v-if="isLogin">Cart </router-link> <span  v-if="isLogin"> | </span>
-      <router-link to="/logout" v-if="isLogin"> <span @click="logout">Logout </span></router-link> 
+      <a @click.prevent="logout" v-if="isLogin"> Logout </a>
     </div>
   </div>
 </template>
