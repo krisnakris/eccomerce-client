@@ -15,9 +15,16 @@
     <p> Category :  {{product.category}} </p>
        
     </b-card-text>
-    <b-button href="#" variant="primary" @click.prevent="addToCart(product.id)">         
-    <b-icon icon="cart-check" @click="addToCart(product.id)"> </b-icon>  <span> Add to cart </span>
-    </b-button>
+    <div v-b-hover="handleHoverCart">
+      <b-icon v-if="!isCartHovered" icon="cart-check" @click="addToCart(product.id)"> </b-icon>  
+      <b-icon v-if="isCartHovered" icon="cart-check-fill" @click="addToCart(product.id)"> </b-icon>  
+      <span @click="addToCart(product.id)"> Add to cart </span> <br> <br>
+    </div>
+    <div v-b-hover="handleWishlist">
+      <b-icon icon="heart"  v-if="!isWishlistHovered" @click="addToWishlist(product.id)"> </b-icon> 
+      <b-icon icon="heart-fill" v-if="isWishlistHovered" @click="addToWishlist(product.id)"> </b-icon> 
+      <span @click="addToWishlist(product.id)"> Wishlist </span>
+    </div>
   </b-card>
 </div>
 </template>
@@ -28,7 +35,8 @@ export default {
   props: ['product'],
   data () {
     return {
-
+      isCartHovered : false,
+      isWishlistHovered : false
     };
   },
   methods: {
@@ -36,6 +44,15 @@ export default {
     },
     addToCart (id) {
       this.$store.dispatch('addToCart', id);
+    },
+    handleHoverCart (hovered) {
+      this.isCartHovered = hovered;
+    },
+    handleWishlist (hovered) {
+      this.isWishlistHovered = hovered;
+    },
+    addToWishlist (id) {
+      console.log(id);
     }
   },
   created () {
